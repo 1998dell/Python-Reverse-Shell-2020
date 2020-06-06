@@ -72,6 +72,10 @@ def start_turtle():
 		elif cmd == 'restart':
 			icon()
 			print()
+		elif cmd == 'shutdown':
+			queue.task_done()
+			print('Server shutdown')
+			break
 		elif 'select' in cmd:
 			conn = get_target(cmd)
 			if conn is not None:
@@ -413,6 +417,7 @@ def work():
 			accept_connections()
 		if x==2:
 			start_turtle()
+		queue.task_done()
 	
 def create_jobs():
 	for x in JOB_NUMBER:
