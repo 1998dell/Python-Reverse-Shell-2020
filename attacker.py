@@ -23,7 +23,7 @@ def socket_create():
 		global port
 		global s
 		host = ''
-		port = 4278
+		port = 4444
 		s = socket.socket()
 	except socket.error as msg:
 		print("Socket Creation Error: " + str(msg))
